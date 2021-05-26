@@ -90,6 +90,10 @@ class Template
                 $template = preg_replace('/<!--\s*IF\s+' . $variable . '\s*-->(.*?)<!--\s*ELSE[^-]*-->.*?<!--\s*ENDIF\s+' . $variable . '\s*-->/is', '\1', $template);
                 $template = preg_replace('/<!--\s*IF\s+' . $variable . '\s*-->(.*?)<!--\s*ENDIF\s+' . $variable . '\s*-->/is', '\1', $template);
             }
+            else // Process any conditional statement if the variable is false.
+	    {
+                $template = preg_replace('/<!--\s*IF\s+' . $variable . '\s*-->.*?<!--\s*ELSE[^-]*-->(.*?)<!--\s*ENDIF\s+' . $variable . '\s*-->/is','\1',$template);
+            }
             // Process arrays only if there is a corresponding template block.
             if (is_array($value) &&
                 preg_match('/<!--\s*BEGIN\s+' . $variable . '\s*-->(.*?)<!--\s*END\s+' . $variable . '\s*-->/is', $template, $matches))
